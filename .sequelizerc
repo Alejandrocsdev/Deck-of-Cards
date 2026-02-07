@@ -1,0 +1,8 @@
+const path = require('path');
+
+module.exports = {
+  config: path.resolve('config/db/mysql/credentials.js'),
+  modelsPath: path.resolve('db/mysql/models'),
+  migrationsPath: path.resolve('db/mysql/migrations'),
+  seedersPath: path.resolve('db/mysql/seeders'),
+};

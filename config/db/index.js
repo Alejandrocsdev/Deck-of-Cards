@@ -1,0 +1,1 @@
+exports.connectMysql = require('./mysql');

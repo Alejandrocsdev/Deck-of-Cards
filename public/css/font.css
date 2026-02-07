@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "Onest";
+  src: url(/font/Onest-VariableFont_wght.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: "Noto Sans TC";
+  src: url(/font/NotoSansTC-VariableFont_wght.woff2) format('woff2');
+}

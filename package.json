@@ -1,0 +1,33 @@
+{
+  "name": "template-express",
+  "version": "1.0.0",
+  "description": "An Express.js starter template supporting CommonJS and ES Modules in JavaScript and TypeScript.",
+  "homepage": "https://github.com/Alejandrocsdev/Template-Express#readme",
+  "bugs": {
+    "url": "https://github.com/Alejandrocsdev/Template-Express/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alejandrocsdev/Template-Express.git"
+  },
+  "license": "MIT",
+  "author": "Alejandro Chen Santoro",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+		"gen:time": "node scripts/genTime.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "express-handlebars": "^8.0.4",
+    "mysql2": "^3.16.3",
+    "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11",
+    "sequelize-cli": "^6.6.5"
+  }
+}
