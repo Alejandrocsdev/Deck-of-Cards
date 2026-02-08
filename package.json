@@ -17,7 +17,8 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "gen:time": "node scripts/genTime.js"
+    "gen:time": "node scripts/genTime.js",
+		"db:reset": "bash scripts/reset-db.sh development"
   },
   "dependencies": {
     "dotenv": "^17.2.3",
@@ -28,6 +29,7 @@
     "sequelize": "^6.37.7"
   },
   "devDependencies": {
+    "cross-env": "^10.1.0",
     "nodemon": "^3.1.11",
     "sequelize-cli": "^6.6.5"
   }
