@@ -32,8 +32,8 @@ const start = async () => {
 
   // Routes
   app.use(silence);
-  app.get('/', (req, res) => res.json({ status: 'ok' }));
-  app.get('/home', (req, res) => res.render('home'));
+	app.get('/', (req, res) => res.render('home'));
+  app.get('/health', (req, res) => res.json({ status: 'ok' }));
   app.use('/api', routes);
 
   // Error handling
