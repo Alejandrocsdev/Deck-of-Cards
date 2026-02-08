@@ -18,7 +18,7 @@
     "dev": "nodemon server.js",
     "start": "node server.js",
     "gen:time": "node scripts/genTime.js",
-		"db:reset": "bash scripts/reset-db.sh development"
+		"db:reset": "bash scripts/dbReset.sh development"
   },
   "dependencies": {
     "dotenv": "^17.2.3",

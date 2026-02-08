@@ -1,4 +1,3 @@
-'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Deck extends Model {
@@ -6,6 +5,10 @@ module.exports = (sequelize, DataTypes) => {
       Deck.hasMany(models.Card, {
         foreignKey: 'deckId',
         as: 'cards',
+      });
+      Deck.hasMany(models.Pile, {
+        foreignKey: 'deckId',
+        as: 'piles',
       });
     }
   }

@@ -1,8 +1,10 @@
-const { sequelize, Deck, Card } = require('../db/mysql/models');
+const { sequelize, Deck, Card, Pile } = require('../db/mysql/models');
 
 const { drawCards, generateCards, shuffleCards } = require('../domain/cards');
 
 const { identifier } = require('../utils');
+
+const CustomError = require('../errors/CustomError');
 
 exports.findAll = async () => {
   return Deck.findAll();
@@ -122,6 +124,51 @@ exports.draw = async (uid, { count = 1, from = 'top' } = {}) => {
       uid: deck.uid,
       drawn,
       remaining: remaining.length,
+    };
+  });
+};
+
+exports.addToPile = async (uid, pileName, cardCodes = []) => {
+  return sequelize.transaction(async (t) => {
+    // 1. Find deck
+    const deck = await Deck.findOne({ where: { uid }, transaction: t });
+
+    if (!deck) {
+      throw new CustomError(404, 'Deck not found');
+    }
+
+    // 2. Find or create pile
+    const [pile] = await Pile.findOrCreate({
+      where: { deckId: deck.id, name: pileName },
+      transaction: t,
+    });
+
+    // 3. Fetch cards (must be drawn & not already in pile)
+    const foundCards = await Card.findAll({
+      where: { deckId: deck.id, code: cardCodes, drawn: true, pileId: null },
+      transaction: t,
+    });
+
+    if (foundCards.length !== cardCodes.length) {
+      throw new CustomError(400, 'One or more cards are invalid, not drawn, or already in a pile');
+    }
+
+    // 4. Assign cards to pile
+    await Card.update(
+      { pileId: pile.id },
+      { where: { id: foundCards.map((card) => card.id) }, transaction: t },
+    );
+
+    // 5. Count pile cards
+    const pileCount = await Card.count({
+      where: { pileId: pile.id },
+      transaction: t,
+    });
+
+    return {
+      uid: deck.uid,
+      remaining: deck.remaining,
+      pileCount,
     };
   });
 };

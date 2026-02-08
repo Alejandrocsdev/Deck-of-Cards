@@ -1,4 +1,3 @@
-'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Card extends Model {
@@ -7,12 +6,20 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'deckId',
         as: 'deck',
       });
+      Card.belongsTo(models.Pile, {
+        foreignKey: 'pileId',
+        as: 'pile',
+      });
     }
   }
   Card.init(
     {
       deckId: {
         allowNull: false,
+        type: DataTypes.INTEGER,
+      },
+      pileId: {
+        allowNull: true,
         type: DataTypes.INTEGER,
       },
       code: {
