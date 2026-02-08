@@ -1,44 +1,52 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Deck extends Model {
+  class Card extends Model {
     static associate(models) {
-      Deck.hasMany(models.Card, {
+      Card.belongsTo(models.Deck, {
         foreignKey: 'deckId',
-        as: 'cards',
+        as: 'deck',
       });
     }
   }
-  Deck.init(
+  Card.init(
     {
-      uid: {
-        allowNull: false,
-        type: DataTypes.STRING,
-        unique: true,
-      },
-      deckCount: {
+      deckId: {
         allowNull: false,
         type: DataTypes.INTEGER,
       },
-      shuffled: {
+      code: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      value: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      suit: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      image: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      drawn: {
         allowNull: false,
         type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
-      jokerEnabled: {
-        allowNull: false,
-        type: DataTypes.BOOLEAN,
-      },
-      remaining: {
+      position: {
         allowNull: false,
         type: DataTypes.INTEGER,
       },
     },
     {
       sequelize,
-      modelName: 'Deck',
-      tableName: 'decks',
+      modelName: 'Card',
+      tableName: 'cards',
       underscored: true,
     },
   );
-  return Deck;
+  return Card;
 };
