@@ -24,7 +24,7 @@ exports.drawCards = asyncHandler(async (req, res) => {
   const result = await decksService.draw(uid, { count: Number(count), from });
 
   const drawnDto = result.drawn.map((card) => {
-    return exclude(card, ['deckId', 'pileId']).public().json();
+    return exclude(card).public().json();
   });
 
   res.json({
