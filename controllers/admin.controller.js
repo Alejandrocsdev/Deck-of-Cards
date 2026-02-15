@@ -2,8 +2,6 @@ const decksService = require('../services/deck.service');
 
 const { asyncHandler } = require('../middlewares');
 
-const { exclude } = require('../config/db/mysql/helpers');
-
 const CustomError = require('../errors/CustomError');
 
 exports.getDecks = asyncHandler(async (req, res) => {
@@ -21,11 +19,6 @@ exports.getDeck = asyncHandler(async (req, res) => {
     throw new CustomError(404, 'Deck not found');
   }
 
-  const result = deck.toJSON();
-
-  if (cards) {
-    result.cards = exclude(deck.cards).public().json();
-  }
-
-  res.json(result);
+  const deckDto = deck.toJSON();
+  res.json(deckDto);
 });
